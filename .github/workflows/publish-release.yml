@@ -407,8 +407,19 @@ jobs:
                   echo "*                                 *"
                   echo "*                                 *"
                   echo "***********************************"
-                  docker logs $container_id || echo "no logs"
-                  exit 0
+                  docker_logs=$(docker logs $container_id || echo "no logs")
+                  docker_logs_check=$(echo "${docker_logs}" | grep "e2e tests completed" | grep -v grep)
+                  if [ ! -z "${docker_logs_check}" ]; then
+                    docker logs $container_id || echo "no logs"
+                    echo "${docker_logs_check}"
+                    echo "Testing Succeeded."
+                    exit 0
+                  else
+                    docker logs $container_id || echo "no logs"
+                    echo "${docker_logs_check}"
+                    echo "Testing failed, didn't find th completed message in the logs."
+                    exit 1
+                  fi
               else
                   echo "Testing in progress still...."
                   if [ "${{ github.event.inputs.debug }}" == "true" ]; then
