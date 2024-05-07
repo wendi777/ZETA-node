@@ -390,6 +390,28 @@ jobs:
         if: ${{ github.event.inputs.skip_checks != 'true' }}
         shell: bash
         run: |
+          make start-upgrade-test
+
+      - name: Mark Job Complete Skipped
+        if: ${{ github.event.inputs.skip_checks == 'true' }}
+        shell: bash
+        run: |
+          echo "continue"
+
+  e2e-stateful-data-test:
+    needs:
+      - check_branch
+    runs-on: buildjet-4vcpu-ubuntu-2204
+    timeout-minutes: 120
+    steps:
+      - name: "Checkout Code"
+        if: ${{ github.event.inputs.skip_checks != 'true' }}
+        uses: actions/checkout@v3
+
+      - name: Execute stateful-data-test
+        if: ${{ github.event.inputs.skip_checks != 'true' }}
+        shell: bash
+        run: |
           make start-e2e-import-mainnet-test
           container_id=$(docker ps --filter "ancestor=orchestrator:latest" --format "{{.ID}}")
           if [ -z "$container_id" ]; then
@@ -448,6 +470,7 @@ jobs:
       - e2e-admin-tests
       - e2e-upgrade-test
       - check_branch
+      - e2e-stateful-data-test
     runs-on: buildjet-4vcpu-ubuntu-2004
     timeout-minutes: 60
     environment: release
