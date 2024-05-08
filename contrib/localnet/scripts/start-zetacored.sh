@@ -73,7 +73,8 @@ then
 #  additional pause time is needed for importing data into the genesis as the export file is read into memory
 
   echo "Waiting for zetacore0 to create genesis.json"
-  if [ "$OPTION" != "import-data" ]; then
+
+  if [[ "$OPTION" != "import-data" && "$OPTION" != "import-data-upgrade" ]]; then
     sleep 10
   else
     sleep 500
@@ -163,7 +164,7 @@ then
 # 4. Collect all the gentx files in zetacore0 and create the final genesis.json
   zetacored collect-gentxs
 
-  if [ "$OPTION" == "import-data" ]; then
+  if [[ "$OPTION" == "import-data" || "$OPTION" == "import-data-upgrade" ]]; then
     echo "Importing data"
     zetacored parse-genesis-file /root/genesis_data/exported-genesis.json
   fi
@@ -197,10 +198,10 @@ then
   sed -i -e "/persistent_peers =/s/=.*/= \"$pps\"/" "$HOME"/.zetacored/config/config.toml
 fi
 
+
 # 7 Start the nodes
 # If upgrade option is passed, use cosmovisor to start the nodes and create a governance proposal for upgrade
-if [ "$OPTION" != "upgrade" ]; then
-
+if [[ "$OPTION" != "upgrade" && "$OPTION" != "import-data-upgrade" ]]; then
   exec zetacored start --pruning=nothing --minimum-gas-prices=0.0001azeta --json-rpc.api eth,txpool,personal,net,debug,web3,miner --api.enable --home /root/.zetacored
 
 else

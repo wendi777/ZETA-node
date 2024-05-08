@@ -27,7 +27,7 @@ node="zetacore$num"
 echo "Wait for zetacore to exchange genesis file"
 #  pause nodes other than zetacore0 to wait for zetacore0 to create genesis.json
 #  additional pause time is needed for importing data into the genesis as the export file is read into memory
-if [ "$OPTION" != "import-data" ]; then
+if [[ "$OPTION" != "import-data" && "$OPTION" != "import-data-upgrade" ]]; then
   sleep 40
 else
   sleep 510
@@ -75,7 +75,7 @@ fi
 
 # check if the option is background
 # in this case, we tail the zetaclientd log file
-if [ "$OPTION" == "background" ]; then
+if [[ "$OPTION" == "background" || "$OPTION" == "import-data-upgrade" ]]; then
     sleep 3
     tail -f $HOME/zetaclient.log
 fi

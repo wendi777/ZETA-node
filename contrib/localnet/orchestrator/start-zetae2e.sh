@@ -11,11 +11,11 @@ OPTION=$2
 echo "waiting for geth RPC to start..."
 #  pause nodes other than zetacore0 to wait for zetacore0 to create genesis.json
 #  additional pause time is needed for importing data into the genesis as the export file is read into memory
- if [ "$OPTION" != "import-data" ]; then
+if [[ "$OPTION" != "import-data" && "$OPTION" != "import-data-upgrade" ]]; then
     sleep 2
   else
     sleep 520
-  fi
+fi
 
 ### Create the accounts and fund them with Ether on local Ethereum network
 
@@ -53,7 +53,7 @@ geth --exec 'eth.sendTransaction({from: eth.coinbase, to: "0xF421292cb0d3c97b90E
 
 ### Run zetae2e command depending on the option passed
 
-if [ "$OPTION" == "upgrade" ]; then
+if [[ "$OPTION" == "upgrade" || "$OPTION" == "import-data-upgrade" ]]; then
 
   # Run the e2e tests, then restart zetaclientd at upgrade height and run the e2e tests again
 
