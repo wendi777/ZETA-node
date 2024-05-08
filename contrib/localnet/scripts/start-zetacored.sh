@@ -77,7 +77,7 @@ then
   if [[ "$OPTION" != "import-data" && "$OPTION" != "import-data-upgrade" ]]; then
     sleep 10
   else
-    sleep 500
+    sleep 840
   fi
   echo "genesis.json created"
 fi
@@ -224,8 +224,20 @@ else
 
   # Start the node using cosmovisor
   cosmovisor run start --pruning=nothing --minimum-gas-prices=0.0001azeta --json-rpc.api eth,txpool,personal,net,debug,web3,miner --api.enable --home /root/.zetacored >> zetanode.log 2>&1  &
-  sleep 20
-  echo
+  # shellcheck disable=SC2034
+  while true;
+  do
+    H=$(/root/.zetacored/cosmovisor/genesis/bin/zetacored q crosschain last-zeta-height|tr -d -c 0-9)
+    echo "Current height: $H"
+    wait_for_height=2
+    if [ "$H" == $wait_for_height ] ; then
+     echo "Height reached"
+     echo "$H"
+      break
+    fi
+    echo "Waiting for height to reach $wait_for_height"
+    sleep 5
+  done
 
   # Fetch the height of the upgrade, default is 225, if arg3 is passed, use that value
   UPGRADE_HEIGHT=${3:-225}
