@@ -37,7 +37,6 @@ import (
 
 var Copy = map[string]bool{
 	slashingtypes.ModuleName:        true,
-	govtypes.ModuleName:             true,
 	crisistypes.ModuleName:          true,
 	feemarkettypes.ModuleName:       true,
 	paramstypes.ModuleName:          true,
@@ -56,6 +55,7 @@ var Skip = map[string]bool{
 	banktypes.ModuleName:         true,
 	distributiontypes.ModuleName: true,
 	group.ModuleName:             true,
+	govtypes.ModuleName:          true,
 }
 
 var Modify = map[string]bool{
