@@ -31,7 +31,7 @@ import (
 	"github.com/zeta-chain/zetacore/app"
 	crosschaintypes "github.com/zeta-chain/zetacore/x/crosschain/types"
 	emissionsModuleTypes "github.com/zeta-chain/zetacore/x/emissions/types"
-	fungibleModuleTypes "github.com/zeta-chain/zetacore/x/fungible/types"
+	fungibletypes "github.com/zeta-chain/zetacore/x/fungible/types"
 	observertypes "github.com/zeta-chain/zetacore/x/observer/types"
 )
 
@@ -43,9 +43,7 @@ var Copy = map[string]bool{
 	upgradetypes.ModuleName:         true,
 	evidencetypes.ModuleName:        true,
 	vestingtypes.ModuleName:         true,
-	fungibleModuleTypes.ModuleName:  true,
 	emissionsModuleTypes.ModuleName: true,
-	authz.ModuleName:                true,
 }
 var Skip = map[string]bool{
 	evmtypes.ModuleName:          true,
@@ -56,6 +54,8 @@ var Skip = map[string]bool{
 	distributiontypes.ModuleName: true,
 	group.ModuleName:             true,
 	govtypes.ModuleName:          true,
+	authz.ModuleName:             true,
+	fungibletypes.ModuleName:     true,
 }
 
 var Modify = map[string]bool{
