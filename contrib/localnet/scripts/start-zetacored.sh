@@ -224,21 +224,27 @@ else
 
   # Start the node using cosmovisor
   cosmovisor run start --pruning=nothing --minimum-gas-prices=0.0001azeta --json-rpc.api eth,txpool,personal,net,debug,web3,miner --api.enable --home /root/.zetacored >> zetanode.log 2>&1  &
-  # shellcheck disable=SC2034
+
+
   while true;
-  do
-    H=$(/root/.zetacored/cosmovisor/genesis/bin/zetacored q crosschain last-zeta-height|tr -d -c 0-9)
-    echo "Current height: $H"
-    wait_for_height=2
-    if [ "$H" == $wait_for_height ] ; then
-     echo "Height reached"
-     echo "$H"
-      break
-    fi
-    echo "Waiting for height to reach $wait_for_height"
-    sleep 5
+     do
+       H=$(zetacored q crosschain last-zeta-height|tr -d -c 0-9)
+       echo "Current height: $H"
+       h=$(($H))
+       wait_for_height=2
+       if [ $h -ge $wait_for_height ] ; then
+        echo "Height reached"
+        echo "$H"
+         break
+       fi
+       echo "Waiting for height to reach $wait_for_height"
+       sleep 15
   done
 
+  # shellcheck disable=SC2034
+
+
+  echo "Height reached processing upgrade"
   # Fetch the height of the upgrade, default is 225, if arg3 is passed, use that value
   UPGRADE_HEIGHT=${3:-225}
 
