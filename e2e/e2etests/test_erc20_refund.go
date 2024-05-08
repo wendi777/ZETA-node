@@ -78,7 +78,7 @@ func TestERC20DepositAndCallRefund(r *runner.E2ERunner, _ []string) {
 	}
 
 	// send the deposit
-	amount = big.NewInt(1e7)
+	amount = big.NewInt(1e18)
 	inTxHash, err = sendInvalidERC20Deposit(r, amount)
 	if err != nil {
 		panic(err)

@@ -20,7 +20,7 @@ WORKDIR /go/delivery/zeta-node
 RUN mkdir -p  $GOPATH/bin/old
 RUN mkdir -p  $GOPATH/bin/new
 
-ARG OLD_VERSION=v15.0.0
+ARG OLD_VERSION=v14.0.1
 ENV NEW_VERSION=v16
 
 # Build new release from the current source

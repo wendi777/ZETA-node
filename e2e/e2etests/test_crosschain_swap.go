@@ -13,7 +13,7 @@ import (
 )
 
 func TestCrosschainSwap(r *runner.E2ERunner, _ []string) {
-	r.ZEVMAuth.GasLimit = 10000000
+	r.ZEVMAuth.GasLimit = 400000000
 
 	// TODO: move into setup and skip it if already initialized
 	// https://github.com/zeta-chain/node-private/issues/88
@@ -148,7 +148,8 @@ func TestCrosschainSwap(r *runner.E2ERunner, _ []string) {
 	if err != nil {
 		panic(err)
 	}
-
+	r.Logger.Print("waiting for cctx3")
+	r.Logger.Print("INTX hash %s", txID.String())
 	cctx3 := utils.WaitCctxMinedByInTxHash(r.Ctx, txID.String(), r.CctxClient, r.Logger, r.CctxTimeout)
 	if cctx3.CctxStatus.Status != types.CctxStatus_OutboundMined {
 		panic(fmt.Sprintf(
