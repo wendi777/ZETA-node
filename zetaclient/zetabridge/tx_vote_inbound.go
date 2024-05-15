@@ -18,8 +18,8 @@ const (
 	PostVoteInboundMessagePassingExecutionGasLimit = 4_000_000
 )
 
-// GetInBoundVoteMessage returns a new MsgVoteOnObservedInboundTx
-func GetInBoundVoteMessage(
+// GetInboundVoteMessage returns a new MsgVoteInbound
+func GetInboundVoteMessage(
 	sender string,
 	senderChain int64,
 	txOrigin string,
@@ -27,15 +27,15 @@ func GetInBoundVoteMessage(
 	receiverChain int64,
 	amount math.Uint,
 	message string,
-	inTxHash string,
+	inboundHash string,
 	inBlockHeight uint64,
 	gasLimit uint64,
 	coinType coin.CoinType,
 	asset string,
 	signerAddress string,
 	eventIndex uint,
-) *types.MsgVoteOnObservedInboundTx {
-	msg := types.NewMsgVoteOnObservedInboundTx(
+) *types.MsgVoteInbound {
+	msg := types.NewMsgVoteInbound(
 		signerAddress,
 		sender,
 		senderChain,
@@ -44,7 +44,7 @@ func GetInBoundVoteMessage(
 		receiverChain,
 		amount,
 		message,
-		inTxHash,
+		inboundHash,
 		inBlockHeight,
 		gasLimit,
 		coinType,

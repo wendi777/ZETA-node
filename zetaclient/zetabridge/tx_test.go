@@ -158,7 +158,7 @@ func TestZetaCoreBridge_PostGasPrice(t *testing.T) {
 	//})
 }
 
-func TestZetaCoreBridge_AddTxHashToOutTxTracker(t *testing.T) {
+func TestZetaCoreBridge_AddTxHashToOutboundTracker(t *testing.T) {
 	zetabridge, err := setupCoreBridge()
 	require.NoError(t, err)
 	address := sdktypes.AccAddress(stub.TestKeyringPair.PubKey().Address().Bytes())
@@ -166,14 +166,14 @@ func TestZetaCoreBridge_AddTxHashToOutTxTracker(t *testing.T) {
 
 	t.Run("add tx hash success", func(t *testing.T) {
 		zetaBridgeBroadcast = ZetaBridgeBroadcastTest
-		hash, err := zetabridge.AddTxHashToOutTxTracker(chains.BscMainnetChain.ChainId, 123, "", nil, "", 456)
+		hash, err := zetabridge.AddTxHashToOutboundTracker(chains.BscMainnetChain.ChainId, 123, "", nil, "", 456)
 		require.NoError(t, err)
 		require.Equal(t, sampleHash, hash)
 	})
 
 	t.Run("add tx hash fail", func(t *testing.T) {
 		zetaBridgeBroadcast = ZetaBridgeBroadcastTestErr
-		hash, err := zetabridge.AddTxHashToOutTxTracker(chains.BscMainnetChain.ChainId, 123, "", nil, "", 456)
+		hash, err := zetabridge.AddTxHashToOutboundTracker(chains.BscMainnetChain.ChainId, 123, "", nil, "", 456)
 		require.Error(t, err)
 		require.Equal(t, "", hash)
 	})
@@ -401,7 +401,7 @@ func TestZetaCoreBridge_PostVoteInbound(t *testing.T) {
 
 	t.Run("post inbound vote already voted", func(t *testing.T) {
 		zetaBridgeBroadcast = ZetaBridgeBroadcastTest
-		hash, _, err := zetabridge.PostVoteInbound(100, 200, &crosschaintypes.MsgVoteOnObservedInboundTx{
+		hash, _, err := zetabridge.PostVoteInbound(100, 200, &crosschaintypes.MsgVoteInbound{
 			Creator: address.String(),
 		})
 		require.NoError(t, err)
@@ -409,11 +409,11 @@ func TestZetaCoreBridge_PostVoteInbound(t *testing.T) {
 	})
 }
 
-func TestZetaCoreBridge_GetInBoundVoteMessage(t *testing.T) {
+func TestZetaCoreBridge_GetInboundVoteMessage(t *testing.T) {
 	address := sdktypes.AccAddress(stub.TestKeyringPair.PubKey().Address().Bytes())
 	t.Run("get inbound vote message", func(t *testing.T) {
 		zetaBridgeBroadcast = ZetaBridgeBroadcastTest
-		msg := GetInBoundVoteMessage(
+		msg := GetInboundVoteMessage(
 			address.String(),
 			chains.EthChain.ChainId,
 			"",
@@ -440,7 +440,7 @@ func TestZetaCoreBridge_MonitorVoteInboundTxResult(t *testing.T) {
 
 	t.Run("monitor inbound vote", func(t *testing.T) {
 		zetaBridgeBroadcast = ZetaBridgeBroadcastTest
-		zetabridge.MonitorVoteInboundTxResult(sampleHash, 1000, &crosschaintypes.MsgVoteOnObservedInboundTx{
+		zetabridge.MonitorVoteInboundTxResult(sampleHash, 1000, &crosschaintypes.MsgVoteInbound{
 			Creator: address.String(),
 		})
 		// Nothing to verify against this function
@@ -453,7 +453,7 @@ func TestZetaCoreBridge_PostVoteOutbound(t *testing.T) {
 
 	expectedOutput := observertypes.QueryHasVotedResponse{HasVoted: false}
 	input := observertypes.QueryHasVotedRequest{
-		BallotIdentifier: "0xc507c67847209b403def6d944486ff888c442eccf924cf9ebdc48714b22b5347",
+		BallotIdentifier: "0x6facd1e8a2008cd0acd7784628ff1ac326406f3bb355ea514bf290c6ce6f8355",
 		VoterAddress:     address.String(),
 	}
 	method := "/zetachain.zetacore.observer.Query/HasVoted"
@@ -481,7 +481,7 @@ func TestZetaCoreBridge_PostVoteOutbound(t *testing.T) {
 		coin.CoinType_Gas)
 	require.NoError(t, err)
 	require.Equal(t, sampleHash, hash)
-	require.Equal(t, "0xc507c67847209b403def6d944486ff888c442eccf924cf9ebdc48714b22b5347", ballot)
+	require.Equal(t, "0x6facd1e8a2008cd0acd7784628ff1ac326406f3bb355ea514bf290c6ce6f8355", ballot)
 }
 
 func TestZetaCoreBridge_MonitorVoteOutboundTxResult(t *testing.T) {
@@ -493,7 +493,7 @@ func TestZetaCoreBridge_MonitorVoteOutboundTxResult(t *testing.T) {
 
 	t.Run("monitor outbound vote", func(t *testing.T) {
 		zetaBridgeBroadcast = ZetaBridgeBroadcastTest
-		zetabridge.MonitorVoteOutboundTxResult(sampleHash, 1000, &crosschaintypes.MsgVoteOnObservedOutboundTx{
+		zetabridge.MonitorVoteOutboundTxResult(sampleHash, 1000, &crosschaintypes.MsgVoteOutbound{
 			Creator: address.String(),
 		})
 		// Nothing to verify against this function

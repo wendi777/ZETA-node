@@ -33,9 +33,9 @@ func (mah *MockAnteHandler) AnteHandle(ctx sdk.Context, _ sdk.Tx, _ bool) (sdk.C
 func TestIsSystemTx(t *testing.T) {
 	// system tx types:
 	//      *cctxtypes.MsgVoteGasPrice,
-	//		*cctxtypes.MsgVoteOnObservedInboundTx,
-	//		*cctxtypes.MsgVoteOnObservedOutboundTx,
-	//		*cctxtypes.MsgAddToOutTxTracker,
+	//		*cctxtypes.MsgVoteInbound,
+	//		*cctxtypes.MsgVoteOutbound,
+	//		*cctxtypes.MsgAddOutboundTracker,
 	//		*observertypes.MsgVoteBlockHeader,
 	//		*observertypes.MsgVoteTSS,
 	//		*observertypes.MsgAddBlameVote:
@@ -114,8 +114,8 @@ func TestIsSystemTx(t *testing.T) {
 		},
 
 		{
-			"MsgVoteOnObservedInboundTx",
-			buildTxFromMsg(&crosschaintypes.MsgVoteOnObservedInboundTx{
+			"MsgVoteInbound",
+			buildTxFromMsg(&crosschaintypes.MsgVoteInbound{
 				Creator: sample.AccAddress(),
 			}),
 			isAuthorized,
@@ -123,8 +123,8 @@ func TestIsSystemTx(t *testing.T) {
 			true,
 		},
 		{
-			"MsgExec{MsgVoteOnObservedInboundTx}",
-			buildAuthzTxFromMsg(&crosschaintypes.MsgVoteOnObservedInboundTx{
+			"MsgExec{MsgVoteInbound}",
+			buildAuthzTxFromMsg(&crosschaintypes.MsgVoteInbound{
 				Creator: sample.AccAddress(),
 			}),
 			isAuthorized,
@@ -133,8 +133,8 @@ func TestIsSystemTx(t *testing.T) {
 		},
 
 		{
-			"MsgVoteOnObservedOutboundTx",
-			buildTxFromMsg(&crosschaintypes.MsgVoteOnObservedOutboundTx{
+			"MsgVoteOutbound",
+			buildTxFromMsg(&crosschaintypes.MsgVoteOutbound{
 				Creator: sample.AccAddress(),
 			}),
 			isAuthorized,
@@ -142,8 +142,8 @@ func TestIsSystemTx(t *testing.T) {
 			true,
 		},
 		{
-			"MsgExec{MsgVoteOnObservedOutboundTx}",
-			buildAuthzTxFromMsg(&crosschaintypes.MsgVoteOnObservedOutboundTx{
+			"MsgExec{MsgVoteOutbound}",
+			buildAuthzTxFromMsg(&crosschaintypes.MsgVoteOutbound{
 				Creator: sample.AccAddress(),
 			}),
 			isAuthorized,
@@ -151,8 +151,8 @@ func TestIsSystemTx(t *testing.T) {
 			true,
 		},
 		{
-			"MsgAddToOutTxTracker",
-			buildTxFromMsg(&crosschaintypes.MsgAddToOutTxTracker{
+			"MsgAddOutboundTracker",
+			buildTxFromMsg(&crosschaintypes.MsgAddOutboundTracker{
 				Creator: sample.AccAddress(),
 			}),
 			isAuthorized,
@@ -160,8 +160,8 @@ func TestIsSystemTx(t *testing.T) {
 			true,
 		},
 		{
-			"MsgExec{MsgAddToOutTxTracker}",
-			buildAuthzTxFromMsg(&crosschaintypes.MsgAddToOutTxTracker{
+			"MsgExec{MsgAddOutboundTracker}",
+			buildAuthzTxFromMsg(&crosschaintypes.MsgAddOutboundTracker{
 				Creator: sample.AccAddress(),
 			}),
 			isAuthorized,
