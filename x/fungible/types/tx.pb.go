@@ -30,31 +30,6 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-type UpdatePausedStatusAction int32
-
-const (
-	UpdatePausedStatusAction_PAUSE   UpdatePausedStatusAction = 0
-	UpdatePausedStatusAction_UNPAUSE UpdatePausedStatusAction = 1
-)
-
-var UpdatePausedStatusAction_name = map[int32]string{
-	0: "PAUSE",
-	1: "UNPAUSE",
-}
-
-var UpdatePausedStatusAction_value = map[string]int32{
-	"PAUSE":   0,
-	"UNPAUSE": 1,
-}
-
-func (x UpdatePausedStatusAction) String() string {
-	return proto.EnumName(UpdatePausedStatusAction_name, int32(x))
-}
-
-func (UpdatePausedStatusAction) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_7bea9688d1d01113, []int{0}
-}
-
 type MsgDeploySystemContracts struct {
 	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
 }
@@ -681,24 +656,23 @@ func (m *MsgUpdateContractBytecodeResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgUpdateContractBytecodeResponse proto.InternalMessageInfo
 
-type MsgUpdateZRC20PausedStatus struct {
-	Creator        string                   `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	Zrc20Addresses []string                 `protobuf:"bytes,2,rep,name=zrc20_addresses,json=zrc20Addresses,proto3" json:"zrc20_addresses,omitempty"`
-	Action         UpdatePausedStatusAction `protobuf:"varint,3,opt,name=action,proto3,enum=zetachain.zetacore.fungible.UpdatePausedStatusAction" json:"action,omitempty"`
+type MsgPauseZRC20 struct {
+	Creator        string   `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Zrc20Addresses []string `protobuf:"bytes,2,rep,name=zrc20_addresses,json=zrc20Addresses,proto3" json:"zrc20_addresses,omitempty"`
 }
 
-func (m *MsgUpdateZRC20PausedStatus) Reset()         { *m = MsgUpdateZRC20PausedStatus{} }
-func (m *MsgUpdateZRC20PausedStatus) String() string { return proto.CompactTextString(m) }
-func (*MsgUpdateZRC20PausedStatus) ProtoMessage()    {}
-func (*MsgUpdateZRC20PausedStatus) Descriptor() ([]byte, []int) {
+func (m *MsgPauseZRC20) Reset()         { *m = MsgPauseZRC20{} }
+func (m *MsgPauseZRC20) String() string { return proto.CompactTextString(m) }
+func (*MsgPauseZRC20) ProtoMessage()    {}
+func (*MsgPauseZRC20) Descriptor() ([]byte, []int) {
 	return fileDescriptor_7bea9688d1d01113, []int{12}
 }
-func (m *MsgUpdateZRC20PausedStatus) XXX_Unmarshal(b []byte) error {
+func (m *MsgPauseZRC20) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgUpdateZRC20PausedStatus) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgPauseZRC20) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgUpdateZRC20PausedStatus.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgPauseZRC20.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -708,54 +682,47 @@ func (m *MsgUpdateZRC20PausedStatus) XXX_Marshal(b []byte, deterministic bool) (
 		return b[:n], nil
 	}
 }
-func (m *MsgUpdateZRC20PausedStatus) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgUpdateZRC20PausedStatus.Merge(m, src)
+func (m *MsgPauseZRC20) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgPauseZRC20.Merge(m, src)
 }
-func (m *MsgUpdateZRC20PausedStatus) XXX_Size() int {
+func (m *MsgPauseZRC20) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgUpdateZRC20PausedStatus) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgUpdateZRC20PausedStatus.DiscardUnknown(m)
+func (m *MsgPauseZRC20) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgPauseZRC20.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgUpdateZRC20PausedStatus proto.InternalMessageInfo
+var xxx_messageInfo_MsgPauseZRC20 proto.InternalMessageInfo
 
-func (m *MsgUpdateZRC20PausedStatus) GetCreator() string {
+func (m *MsgPauseZRC20) GetCreator() string {
 	if m != nil {
 		return m.Creator
 	}
 	return ""
 }
 
-func (m *MsgUpdateZRC20PausedStatus) GetZrc20Addresses() []string {
+func (m *MsgPauseZRC20) GetZrc20Addresses() []string {
 	if m != nil {
 		return m.Zrc20Addresses
 	}
 	return nil
 }
 
-func (m *MsgUpdateZRC20PausedStatus) GetAction() UpdatePausedStatusAction {
-	if m != nil {
-		return m.Action
-	}
-	return UpdatePausedStatusAction_PAUSE
+type MsgPauseZRC20Response struct {
 }
 
-type MsgUpdateZRC20PausedStatusResponse struct {
-}
-
-func (m *MsgUpdateZRC20PausedStatusResponse) Reset()         { *m = MsgUpdateZRC20PausedStatusResponse{} }
-func (m *MsgUpdateZRC20PausedStatusResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgUpdateZRC20PausedStatusResponse) ProtoMessage()    {}
-func (*MsgUpdateZRC20PausedStatusResponse) Descriptor() ([]byte, []int) {
+func (m *MsgPauseZRC20Response) Reset()         { *m = MsgPauseZRC20Response{} }
+func (m *MsgPauseZRC20Response) String() string { return proto.CompactTextString(m) }
+func (*MsgPauseZRC20Response) ProtoMessage()    {}
+func (*MsgPauseZRC20Response) Descriptor() ([]byte, []int) {
 	return fileDescriptor_7bea9688d1d01113, []int{13}
 }
-func (m *MsgUpdateZRC20PausedStatusResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgPauseZRC20Response) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgUpdateZRC20PausedStatusResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgPauseZRC20Response) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgUpdateZRC20PausedStatusResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgPauseZRC20Response.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -765,17 +732,105 @@ func (m *MsgUpdateZRC20PausedStatusResponse) XXX_Marshal(b []byte, deterministic
 		return b[:n], nil
 	}
 }
-func (m *MsgUpdateZRC20PausedStatusResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgUpdateZRC20PausedStatusResponse.Merge(m, src)
+func (m *MsgPauseZRC20Response) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgPauseZRC20Response.Merge(m, src)
 }
-func (m *MsgUpdateZRC20PausedStatusResponse) XXX_Size() int {
+func (m *MsgPauseZRC20Response) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgUpdateZRC20PausedStatusResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgUpdateZRC20PausedStatusResponse.DiscardUnknown(m)
+func (m *MsgPauseZRC20Response) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgPauseZRC20Response.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgUpdateZRC20PausedStatusResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgPauseZRC20Response proto.InternalMessageInfo
+
+type MsgUnpauseZRC20 struct {
+	Creator        string   `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Zrc20Addresses []string `protobuf:"bytes,2,rep,name=zrc20_addresses,json=zrc20Addresses,proto3" json:"zrc20_addresses,omitempty"`
+}
+
+func (m *MsgUnpauseZRC20) Reset()         { *m = MsgUnpauseZRC20{} }
+func (m *MsgUnpauseZRC20) String() string { return proto.CompactTextString(m) }
+func (*MsgUnpauseZRC20) ProtoMessage()    {}
+func (*MsgUnpauseZRC20) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7bea9688d1d01113, []int{14}
+}
+func (m *MsgUnpauseZRC20) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgUnpauseZRC20) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgUnpauseZRC20.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgUnpauseZRC20) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgUnpauseZRC20.Merge(m, src)
+}
+func (m *MsgUnpauseZRC20) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgUnpauseZRC20) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgUnpauseZRC20.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgUnpauseZRC20 proto.InternalMessageInfo
+
+func (m *MsgUnpauseZRC20) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgUnpauseZRC20) GetZrc20Addresses() []string {
+	if m != nil {
+		return m.Zrc20Addresses
+	}
+	return nil
+}
+
+type MsgUnpauseZRC20Response struct {
+}
+
+func (m *MsgUnpauseZRC20Response) Reset()         { *m = MsgUnpauseZRC20Response{} }
+func (m *MsgUnpauseZRC20Response) String() string { return proto.CompactTextString(m) }
+func (*MsgUnpauseZRC20Response) ProtoMessage()    {}
+func (*MsgUnpauseZRC20Response) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7bea9688d1d01113, []int{15}
+}
+func (m *MsgUnpauseZRC20Response) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgUnpauseZRC20Response) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgUnpauseZRC20Response.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgUnpauseZRC20Response) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgUnpauseZRC20Response.Merge(m, src)
+}
+func (m *MsgUnpauseZRC20Response) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgUnpauseZRC20Response) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgUnpauseZRC20Response.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgUnpauseZRC20Response proto.InternalMessageInfo
 
 type MsgUpdateZRC20LiquidityCap struct {
 	Creator      string                                  `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
@@ -787,7 +842,7 @@ func (m *MsgUpdateZRC20LiquidityCap) Reset()         { *m = MsgUpdateZRC20Liquid
 func (m *MsgUpdateZRC20LiquidityCap) String() string { return proto.CompactTextString(m) }
 func (*MsgUpdateZRC20LiquidityCap) ProtoMessage()    {}
 func (*MsgUpdateZRC20LiquidityCap) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7bea9688d1d01113, []int{14}
+	return fileDescriptor_7bea9688d1d01113, []int{16}
 }
 func (m *MsgUpdateZRC20LiquidityCap) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -837,7 +892,7 @@ func (m *MsgUpdateZRC20LiquidityCapResponse) Reset()         { *m = MsgUpdateZRC
 func (m *MsgUpdateZRC20LiquidityCapResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgUpdateZRC20LiquidityCapResponse) ProtoMessage()    {}
 func (*MsgUpdateZRC20LiquidityCapResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7bea9688d1d01113, []int{15}
+	return fileDescriptor_7bea9688d1d01113, []int{17}
 }
 func (m *MsgUpdateZRC20LiquidityCapResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -867,7 +922,6 @@ func (m *MsgUpdateZRC20LiquidityCapResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgUpdateZRC20LiquidityCapResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterEnum("zetachain.zetacore.fungible.UpdatePausedStatusAction", UpdatePausedStatusAction_name, UpdatePausedStatusAction_value)
 	proto.RegisterType((*MsgDeploySystemContracts)(nil), "zetachain.zetacore.fungible.MsgDeploySystemContracts")
 	proto.RegisterType((*MsgDeploySystemContractsResponse)(nil), "zetachain.zetacore.fungible.MsgDeploySystemContractsResponse")
 	proto.RegisterType((*MsgUpdateZRC20WithdrawFee)(nil), "zetachain.zetacore.fungible.MsgUpdateZRC20WithdrawFee")
@@ -880,8 +934,10 @@ func init() {
 	proto.RegisterType((*MsgRemoveForeignCoinResponse)(nil), "zetachain.zetacore.fungible.MsgRemoveForeignCoinResponse")
 	proto.RegisterType((*MsgUpdateContractBytecode)(nil), "zetachain.zetacore.fungible.MsgUpdateContractBytecode")
 	proto.RegisterType((*MsgUpdateContractBytecodeResponse)(nil), "zetachain.zetacore.fungible.MsgUpdateContractBytecodeResponse")
-	proto.RegisterType((*MsgUpdateZRC20PausedStatus)(nil), "zetachain.zetacore.fungible.MsgUpdateZRC20PausedStatus")
-	proto.RegisterType((*MsgUpdateZRC20PausedStatusResponse)(nil), "zetachain.zetacore.fungible.MsgUpdateZRC20PausedStatusResponse")
+	proto.RegisterType((*MsgPauseZRC20)(nil), "zetachain.zetacore.fungible.MsgPauseZRC20")
+	proto.RegisterType((*MsgPauseZRC20Response)(nil), "zetachain.zetacore.fungible.MsgPauseZRC20Response")
+	proto.RegisterType((*MsgUnpauseZRC20)(nil), "zetachain.zetacore.fungible.MsgUnpauseZRC20")
+	proto.RegisterType((*MsgUnpauseZRC20Response)(nil), "zetachain.zetacore.fungible.MsgUnpauseZRC20Response")
 	proto.RegisterType((*MsgUpdateZRC20LiquidityCap)(nil), "zetachain.zetacore.fungible.MsgUpdateZRC20LiquidityCap")
 	proto.RegisterType((*MsgUpdateZRC20LiquidityCapResponse)(nil), "zetachain.zetacore.fungible.MsgUpdateZRC20LiquidityCapResponse")
 }
@@ -891,71 +947,70 @@ func init() {
 }
 
 var fileDescriptor_7bea9688d1d01113 = []byte{
-	// 1013 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x57, 0xdd, 0x6e, 0x1b, 0x45,
-	0x14, 0xce, 0x26, 0xcd, 0x8f, 0x4f, 0x6b, 0xc7, 0x8c, 0x4c, 0xbb, 0x38, 0xc8, 0x69, 0xb7, 0xa1,
-	0x0d, 0x95, 0x6a, 0x17, 0x53, 0xa8, 0x90, 0x68, 0x51, 0xe2, 0x26, 0x50, 0xa9, 0x46, 0xd5, 0xa6,
-	0x29, 0x22, 0x37, 0xab, 0xc9, 0xee, 0x64, 0xbd, 0x8a, 0x3d, 0xb3, 0xec, 0x8c, 0x71, 0xdd, 0x3b,
-	0x24, 0xae, 0x2a, 0x81, 0x2a, 0xf1, 0x00, 0xbc, 0x01, 0x12, 0x6f, 0xd1, 0xcb, 0x5e, 0x22, 0x84,
-	0x2a, 0x94, 0xbc, 0x08, 0x9a, 0xd9, 0x9f, 0xae, 0x7f, 0xd6, 0x89, 0xcd, 0x4d, 0xb2, 0x33, 0x39,
-	0xdf, 0x97, 0xef, 0x9c, 0x39, 0xe7, 0x9b, 0x5d, 0xd8, 0x78, 0x41, 0x04, 0xb6, 0x5b, 0xd8, 0xa3,
-	0x35, 0xf5, 0xc4, 0x02, 0x52, 0x3b, 0xea, 0x52, 0xd7, 0x3b, 0x6c, 0x93, 0x9a, 0x78, 0x5e, 0xf5,
-	0x03, 0x26, 0x18, 0x5a, 0x4b, 0xa2, 0xaa, 0x71, 0x54, 0x35, 0x8e, 0x2a, 0x97, 0x5c, 0xe6, 0x32,
-	0x15, 0x57, 0x93, 0x4f, 0x21, 0xa4, 0x7c, 0x63, 0x0c, 0xb1, 0x7f, 0xec, 0xd6, 0x6c, 0xe6, 0x51,
-	0xf5, 0x23, 0x8c, 0x33, 0xee, 0x82, 0xde, 0xe4, 0xee, 0x43, 0xe2, 0xb7, 0x59, 0x7f, 0xaf, 0xcf,
-	0x05, 0xe9, 0x34, 0x18, 0x15, 0x01, 0xb6, 0x05, 0x47, 0x3a, 0x2c, 0xdb, 0x01, 0xc1, 0x82, 0x05,
-	0xba, 0x76, 0x55, 0xdb, 0xcc, 0x99, 0xf1, 0xd2, 0xf8, 0x47, 0x83, 0xab, 0x59, 0x30, 0x93, 0x70,
-	0x9f, 0x51, 0x4e, 0xd0, 0x2d, 0x28, 0x76, 0xa9, 0xc7, 0x7b, 0xd8, 0x7f, 0x56, 0xdf, 0xc5, 0xb6,
-	0x60, 0x41, 0x3f, 0xe2, 0x19, 0xd9, 0x47, 0x25, 0x58, 0xec, 0x49, 0x9d, 0xfa, 0xbc, 0x0a, 0x08,
-	0x17, 0x68, 0x13, 0x56, 0x93, 0x48, 0x93, 0x75, 0x05, 0x09, 0xf4, 0x05, 0xf5, 0xf7, 0xe1, 0x6d,
-	0xb4, 0x01, 0x79, 0x9b, 0x51, 0x4a, 0x24, 0xdb, 0xc1, 0xce, 0xb3, 0xa6, 0x7e, 0x41, 0xc5, 0x0d,
-	0x6e, 0xa2, 0x1b, 0x50, 0xe0, 0x03, 0x62, 0xf5, 0x45, 0x15, 0x36, 0xb4, 0x6b, 0xbc, 0x9c, 0x87,
-	0x0f, 0x9a, 0xdc, 0xdd, 0xf7, 0x1d, 0x2c, 0xc8, 0x81, 0xd9, 0xa8, 0xdf, 0xf9, 0xce, 0x13, 0x2d,
-	0x27, 0xc0, 0xbd, 0x5d, 0x42, 0xb2, 0xcb, 0x82, 0xae, 0x43, 0xfe, 0x45, 0x60, 0xd7, 0xef, 0x58,
-	0xd8, 0x71, 0x02, 0xc2, 0x79, 0x94, 0xcd, 0x25, 0xb5, 0xb9, 0x15, 0xee, 0xa1, 0xef, 0xa1, 0x48,
-	0x49, 0xcf, 0xea, 0x45, 0x8c, 0xd6, 0x11, 0x21, 0xfa, 0x92, 0x8c, 0xdb, 0xae, 0xbd, 0x7e, 0xbb,
-	0x3e, 0xf7, 0xf7, 0xdb, 0xf5, 0x9b, 0xae, 0x27, 0x5a, 0xdd, 0xc3, 0xaa, 0xcd, 0x3a, 0x35, 0x9b,
-	0xf1, 0x0e, 0xe3, 0xd1, 0xaf, 0xdb, 0xdc, 0x39, 0xae, 0x89, 0xbe, 0x4f, 0x78, 0x75, 0xdf, 0xa3,
-	0xc2, 0x2c, 0x50, 0xd2, 0x4b, 0x2b, 0xdb, 0x83, 0xbc, 0xa4, 0x76, 0x31, 0xb7, 0xda, 0x5e, 0xc7,
-	0x13, 0xfa, 0xf2, 0x6c, 0xbc, 0x17, 0x29, 0xe9, 0x7d, 0x8d, 0xf9, 0x63, 0xc9, 0x61, 0x5c, 0x87,
-	0x6b, 0x99, 0xb5, 0x88, 0xcf, 0xda, 0x08, 0xe0, 0x4a, 0x12, 0x34, 0xd8, 0x0f, 0x13, 0xca, 0x75,
-	0x1f, 0xd6, 0xa4, 0xdc, 0xb0, 0xf8, 0x96, 0x1d, 0x01, 0x86, 0x8a, 0xa7, 0x53, 0xd2, 0x1b, 0x64,
-	0x8c, 0x0a, 0x69, 0x5c, 0x83, 0xf5, 0x8c, 0xff, 0x99, 0xc8, 0xfa, 0x7d, 0x1e, 0xca, 0x49, 0x9f,
-	0xee, 0x46, 0x13, 0xd3, 0x60, 0x1e, 0x55, 0x89, 0x4c, 0x90, 0x56, 0x82, 0xc5, 0x1d, 0x19, 0x12,
-	0xf7, 0xa3, 0x5a, 0xa0, 0x4d, 0x28, 0x1e, 0xb1, 0x80, 0x78, 0x2e, 0xb5, 0xd4, 0x68, 0x59, 0x9e,
-	0xa3, 0x1a, 0x72, 0xc1, 0x2c, 0x44, 0xfb, 0x0d, 0xb9, 0xfd, 0xc8, 0x41, 0x65, 0x58, 0x71, 0x88,
-	0xed, 0x75, 0x70, 0x9b, 0xab, 0x56, 0xcc, 0x9b, 0xc9, 0x1a, 0x21, 0xb8, 0x40, 0x71, 0x87, 0x44,
-	0xbd, 0xa7, 0x9e, 0xd1, 0x65, 0x58, 0xe2, 0xfd, 0xce, 0x21, 0x6b, 0x87, 0xad, 0x60, 0x46, 0x2b,
-	0xb4, 0x0d, 0x39, 0x39, 0xac, 0x96, 0x3c, 0x1c, 0x75, 0x9a, 0x85, 0xfa, 0x47, 0xd5, 0x31, 0x6e,
-	0xe0, 0x1f, 0xbb, 0x55, 0x35, 0xd5, 0x32, 0xb9, 0xa7, 0x7d, 0x9f, 0x98, 0x2b, 0x76, 0xf4, 0x84,
-	0xd6, 0x20, 0xf7, 0xae, 0x23, 0x56, 0x94, 0xdc, 0x15, 0x37, 0x3e, 0xdd, 0x07, 0x60, 0x64, 0x17,
-	0x28, 0x19, 0x65, 0x1d, 0x96, 0xe3, 0x53, 0x89, 0x0a, 0x15, 0x2d, 0x8d, 0x87, 0x50, 0x6a, 0x72,
-	0xd7, 0x24, 0x1d, 0xf6, 0x23, 0xd9, 0x8d, 0x6a, 0xc0, 0x3c, 0x3a, 0xa1, 0xb4, 0x71, 0xfa, 0xf3,
-	0xef, 0xd2, 0x37, 0x2a, 0xf0, 0xe1, 0x38, 0x96, 0xe4, 0x1c, 0x7f, 0xd6, 0x52, 0x03, 0x19, 0x9f,
-	0xf2, 0x76, 0x5f, 0x10, 0x9b, 0x39, 0x93, 0x06, 0xf2, 0x63, 0x28, 0x66, 0xb4, 0xd5, 0xaa, 0x3d,
-	0xd8, 0x4d, 0xc8, 0x08, 0x67, 0x47, 0x12, 0x5a, 0x2d, 0xcc, 0x5b, 0x91, 0xd3, 0xc8, 0x51, 0x68,
-	0x30, 0x87, 0x7c, 0x83, 0x79, 0x6b, 0x60, 0x14, 0x86, 0x55, 0x24, 0x5a, 0xff, 0xd0, 0x54, 0xcf,
-	0xa5, 0x06, 0xe6, 0x09, 0xee, 0x72, 0xe2, 0xec, 0x09, 0x2c, 0xba, 0x13, 0x4c, 0x15, 0xdd, 0x84,
-	0xd5, 0x01, 0xf7, 0x20, 0x52, 0xeb, 0x82, 0xb4, 0xa7, 0xb4, 0x7f, 0x10, 0x8e, 0x9a, 0xb0, 0x84,
-	0x6d, 0xe1, 0x31, 0xaa, 0x34, 0x16, 0xea, 0x9f, 0x55, 0x27, 0xdc, 0x0f, 0xd5, 0x50, 0x48, 0x5a,
-	0xc3, 0x96, 0x02, 0x9b, 0x11, 0x89, 0xb1, 0xa1, 0x5a, 0x20, 0x43, 0x6f, 0x92, 0xd6, 0x9f, 0x23,
-	0x69, 0x3d, 0xf6, 0x7e, 0xe8, 0x7a, 0x8e, 0x27, 0xfa, 0x0d, 0xec, 0xff, 0x5f, 0x53, 0x7c, 0x0a,
-	0xf9, 0x76, 0x4c, 0x67, 0xd9, 0xd8, 0x0f, 0xab, 0x3f, 0xbd, 0x73, 0x5d, 0x6a, 0xa7, 0x44, 0x8d,
-	0x66, 0x96, 0x96, 0x1c, 0x67, 0x76, 0xab, 0x0e, 0x7a, 0x56, 0x8d, 0x50, 0x0e, 0x16, 0x9f, 0x6c,
-	0xed, 0xef, 0xed, 0x14, 0xe7, 0xd0, 0x45, 0x58, 0xde, 0xff, 0x36, 0x5c, 0x68, 0xf5, 0x5f, 0x73,
-	0xb0, 0xd0, 0xe4, 0x2e, 0xfa, 0x45, 0x83, 0xf7, 0xc7, 0x5f, 0x9e, 0x93, 0x0f, 0x25, 0xeb, 0xf2,
-	0x2c, 0xdf, 0x9f, 0x09, 0x96, 0x0c, 0xea, 0x6f, 0x1a, 0x5c, 0xc9, 0x72, 0xbb, 0x7b, 0xe7, 0xa3,
-	0x1e, 0x01, 0x96, 0xbf, 0x9a, 0x11, 0x98, 0xa8, 0xfa, 0x49, 0x83, 0xf7, 0x46, 0x2d, 0xe2, 0x93,
-	0xb3, 0x68, 0x47, 0x20, 0xe5, 0x2f, 0xa6, 0x86, 0x24, 0x1a, 0x5e, 0x6a, 0x50, 0x1a, 0x7b, 0x3f,
-	0xdd, 0x3d, 0x8b, 0x73, 0x1c, 0xaa, 0xfc, 0xe5, 0x2c, 0xa8, 0x44, 0xcc, 0x2b, 0x0d, 0x2e, 0x67,
-	0x98, 0xd9, 0xe7, 0xe7, 0x23, 0x1e, 0xc6, 0x95, 0x1f, 0xcc, 0x86, 0x1b, 0x23, 0x69, 0xe4, 0x85,
-	0xe7, 0x9c, 0x92, 0x86, 0x71, 0xe7, 0x95, 0x94, 0xf5, 0x52, 0xa1, 0x9a, 0x39, 0xcb, 0x46, 0xef,
-	0x4d, 0xc1, 0x9d, 0x06, 0x9e, 0xdd, 0xcc, 0x67, 0x18, 0xe1, 0xb0, 0xaa, 0x01, 0x17, 0x9c, 0x46,
-	0x55, 0x1a, 0x38, 0x95, 0xaa, 0x71, 0x26, 0xb6, 0xfd, 0xe8, 0xf5, 0x49, 0x45, 0x7b, 0x73, 0x52,
-	0xd1, 0xfe, 0x3d, 0xa9, 0x68, 0xaf, 0x4e, 0x2b, 0x73, 0x6f, 0x4e, 0x2b, 0x73, 0x7f, 0x9d, 0x56,
-	0xe6, 0x0e, 0x6a, 0x29, 0xef, 0x94, 0xd4, 0xb7, 0x87, 0xbe, 0x0a, 0x9e, 0xa7, 0x3e, 0x38, 0xa4,
-	0x91, 0x1e, 0x2e, 0xa9, 0x2f, 0x83, 0x4f, 0xff, 0x0b, 0x00, 0x00, 0xff, 0xff, 0x8b, 0x1c, 0x83,
-	0x64, 0x9c, 0x0c, 0x00, 0x00,
+	// 998 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x57, 0xdf, 0x6e, 0xdb, 0xb6,
+	0x17, 0x8e, 0x92, 0xe6, 0xdf, 0xf9, 0xc5, 0x49, 0x7e, 0x84, 0xdb, 0xa8, 0xca, 0xe0, 0xb4, 0x6a,
+	0xd6, 0x66, 0xc5, 0x6a, 0x75, 0x5e, 0xb6, 0x62, 0xc0, 0xda, 0x61, 0x71, 0x9b, 0xad, 0x40, 0x0d,
+	0x0c, 0x6a, 0xda, 0x61, 0xb9, 0x11, 0x18, 0x89, 0x91, 0x85, 0xd8, 0xa4, 0x26, 0xca, 0x73, 0xdd,
+	0xbb, 0x01, 0xbb, 0x2a, 0x30, 0xa0, 0xc0, 0x1e, 0x60, 0xcf, 0xb0, 0xb7, 0xe8, 0x65, 0x2f, 0x87,
+	0x62, 0x28, 0x86, 0xe4, 0x45, 0x06, 0x52, 0x7f, 0x22, 0xd9, 0x96, 0xed, 0x78, 0xbb, 0x49, 0x44,
+	0xfa, 0x9c, 0x8f, 0x1f, 0x0f, 0xcf, 0xf7, 0x51, 0x82, 0xed, 0x97, 0x24, 0xc4, 0x76, 0x13, 0x7b,
+	0xd4, 0x90, 0x4f, 0x2c, 0x20, 0xc6, 0x71, 0x87, 0xba, 0xde, 0x51, 0x8b, 0x18, 0xe1, 0x8b, 0xaa,
+	0x1f, 0xb0, 0x90, 0xa1, 0xcd, 0x34, 0xaa, 0x9a, 0x44, 0x55, 0x93, 0x28, 0xad, 0xec, 0x32, 0x97,
+	0xc9, 0x38, 0x43, 0x3c, 0x45, 0x29, 0xda, 0xcd, 0x21, 0xc0, 0xfe, 0x89, 0x6b, 0xd8, 0xcc, 0xa3,
+	0xf2, 0x4f, 0x14, 0xa7, 0xef, 0x82, 0xda, 0xe0, 0xee, 0x43, 0xe2, 0xb7, 0x58, 0xef, 0x69, 0x8f,
+	0x87, 0xa4, 0x5d, 0x67, 0x34, 0x0c, 0xb0, 0x1d, 0x72, 0xa4, 0xc2, 0xa2, 0x1d, 0x10, 0x1c, 0xb2,
+	0x40, 0x55, 0xae, 0x29, 0x3b, 0xcb, 0x66, 0x32, 0xd4, 0xff, 0x52, 0xe0, 0x5a, 0x51, 0x9a, 0x49,
+	0xb8, 0xcf, 0x28, 0x27, 0xe8, 0x36, 0xac, 0x77, 0xa8, 0xc7, 0xbb, 0xd8, 0x7f, 0x5e, 0xdb, 0xc7,
+	0x76, 0xc8, 0x82, 0x5e, 0x8c, 0x33, 0x30, 0x8f, 0xca, 0x30, 0xdf, 0x15, 0x3c, 0xd5, 0x59, 0x19,
+	0x10, 0x0d, 0xd0, 0x0e, 0xac, 0xa5, 0x91, 0x26, 0xeb, 0x84, 0x24, 0x50, 0xe7, 0xe4, 0xef, 0xfd,
+	0xd3, 0x68, 0x1b, 0x4a, 0x36, 0xa3, 0x94, 0x08, 0xb4, 0xc3, 0x47, 0xcf, 0x1b, 0xea, 0x25, 0x19,
+	0x97, 0x9f, 0x44, 0x37, 0x61, 0x95, 0xe7, 0xc8, 0xaa, 0xf3, 0x32, 0xac, 0x6f, 0x56, 0x7f, 0x35,
+	0x0b, 0x57, 0x1b, 0xdc, 0x7d, 0xe6, 0x3b, 0x38, 0x24, 0x87, 0x66, 0xbd, 0x76, 0xf7, 0x7b, 0x2f,
+	0x6c, 0x3a, 0x01, 0xee, 0xee, 0x13, 0x52, 0x5c, 0x16, 0x74, 0x03, 0x4a, 0x2f, 0x03, 0xbb, 0x76,
+	0xd7, 0xc2, 0x8e, 0x13, 0x10, 0xce, 0xe3, 0xdd, 0xac, 0xc8, 0xc9, 0xaf, 0xa3, 0x39, 0xf4, 0x03,
+	0xac, 0x53, 0xd2, 0xb5, 0xba, 0x31, 0xa2, 0x75, 0x4c, 0x88, 0xba, 0x20, 0xe2, 0xf6, 0x8c, 0x37,
+	0xef, 0xb7, 0x66, 0xde, 0xbd, 0xdf, 0xba, 0xe5, 0x7a, 0x61, 0xb3, 0x73, 0x54, 0xb5, 0x59, 0xdb,
+	0xb0, 0x19, 0x6f, 0x33, 0x1e, 0xff, 0xbb, 0xc3, 0x9d, 0x13, 0x23, 0xec, 0xf9, 0x84, 0x57, 0x9f,
+	0x79, 0x34, 0x34, 0x57, 0x29, 0xe9, 0x66, 0x99, 0x3d, 0x85, 0x92, 0x80, 0x76, 0x31, 0xb7, 0x5a,
+	0x5e, 0xdb, 0x0b, 0xd5, 0xc5, 0xe9, 0x70, 0xff, 0x47, 0x49, 0xf7, 0x1b, 0xcc, 0x9f, 0x08, 0x0c,
+	0xfd, 0x06, 0x5c, 0x2f, 0xac, 0x45, 0x72, 0xd6, 0x7a, 0x00, 0x1b, 0x69, 0x50, 0xbe, 0x1f, 0x46,
+	0x94, 0xeb, 0x3e, 0x6c, 0x0a, 0xba, 0x51, 0xf1, 0x2d, 0x3b, 0x4e, 0xe8, 0x2b, 0x9e, 0x4a, 0x49,
+	0x37, 0x8f, 0x18, 0x17, 0x52, 0xbf, 0x0e, 0x5b, 0x05, 0x6b, 0xa6, 0xb4, 0x7e, 0x9f, 0x05, 0x2d,
+	0xed, 0xd3, 0xfd, 0x58, 0x31, 0x75, 0xe6, 0x51, 0xb9, 0x91, 0x11, 0xd4, 0xca, 0x30, 0xff, 0x48,
+	0x84, 0x24, 0xfd, 0x28, 0x07, 0x68, 0x07, 0xd6, 0x8f, 0x59, 0x40, 0x3c, 0x97, 0x5a, 0x52, 0x5a,
+	0x96, 0xe7, 0xc8, 0x86, 0x9c, 0x33, 0x57, 0xe3, 0xf9, 0xba, 0x98, 0x7e, 0xec, 0x20, 0x0d, 0x96,
+	0x1c, 0x62, 0x7b, 0x6d, 0xdc, 0xe2, 0xb2, 0x15, 0x4b, 0x66, 0x3a, 0x46, 0x08, 0x2e, 0x51, 0xdc,
+	0x26, 0x71, 0xef, 0xc9, 0x67, 0x74, 0x05, 0x16, 0x78, 0xaf, 0x7d, 0xc4, 0x5a, 0x51, 0x2b, 0x98,
+	0xf1, 0x08, 0xed, 0xc1, 0xb2, 0x10, 0xab, 0x25, 0x0e, 0x47, 0x9e, 0xe6, 0x6a, 0xed, 0xc3, 0xea,
+	0x10, 0x37, 0xf0, 0x4f, 0xdc, 0xaa, 0x54, 0xb5, 0xd8, 0xdc, 0x41, 0xcf, 0x27, 0xe6, 0x92, 0x1d,
+	0x3f, 0xa1, 0x4d, 0x58, 0x3e, 0xef, 0x88, 0x25, 0x49, 0x77, 0xc9, 0x4d, 0x4e, 0xf7, 0x01, 0xe8,
+	0xc5, 0x05, 0x4a, 0xa5, 0xac, 0xc2, 0x62, 0x72, 0x2a, 0x71, 0xa1, 0xe2, 0xa1, 0xfe, 0x10, 0xca,
+	0x0d, 0xee, 0x9a, 0xa4, 0xcd, 0x7e, 0x22, 0xfb, 0x71, 0x0d, 0x98, 0x47, 0x47, 0x94, 0x36, 0xd9,
+	0xfe, 0xec, 0xf9, 0xf6, 0xf5, 0x0a, 0x7c, 0x30, 0x0c, 0x25, 0x3d, 0xc7, 0x5f, 0x94, 0x8c, 0x20,
+	0x93, 0x53, 0xde, 0xeb, 0x85, 0xc4, 0x66, 0xce, 0x28, 0x41, 0x7e, 0x04, 0xeb, 0x05, 0x6d, 0xb5,
+	0x66, 0xe7, 0xbb, 0x09, 0xe9, 0x91, 0x76, 0x04, 0xa0, 0xd5, 0xc4, 0xbc, 0x19, 0x3b, 0x8d, 0x90,
+	0x42, 0x9d, 0x39, 0xe4, 0x5b, 0xcc, 0x9b, 0x39, 0x29, 0xf4, 0xb3, 0x48, 0xb9, 0x9a, 0x50, 0x6a,
+	0x70, 0xf7, 0x3b, 0xdc, 0xe1, 0x64, 0x5c, 0x97, 0xdd, 0x82, 0xb5, 0x9c, 0x5f, 0x10, 0xc1, 0x6e,
+	0x4e, 0x18, 0x52, 0xd6, 0x31, 0x08, 0xd7, 0x37, 0xe0, 0x72, 0x0e, 0x33, 0x5d, 0xec, 0x00, 0xd6,
+	0x04, 0x23, 0xea, 0xff, 0xa7, 0xcb, 0x5d, 0x8d, 0xd4, 0x9c, 0x41, 0x4d, 0x17, 0xfc, 0x43, 0x91,
+	0x8a, 0xca, 0xd8, 0xc1, 0x13, 0xef, 0xc7, 0x8e, 0xe7, 0x78, 0x61, 0xaf, 0x8e, 0xfd, 0x7f, 0xeb,
+	0x8d, 0x07, 0x50, 0x6a, 0x25, 0x70, 0x96, 0x8d, 0xfd, 0xe8, 0x10, 0x2e, 0x6e, 0x60, 0x2b, 0xad,
+	0x0c, 0x29, 0x7d, 0x5b, 0xf6, 0x78, 0x01, 0xe5, 0x64, 0x67, 0xb5, 0x77, 0xcb, 0x30, 0xd7, 0xe0,
+	0x2e, 0xfa, 0x55, 0x81, 0xcb, 0xc3, 0xef, 0xc3, 0xcf, 0xaa, 0x23, 0xee, 0xe1, 0x6a, 0xd1, 0x7d,
+	0xa8, 0xdd, 0x9f, 0x2a, 0x2d, 0xd5, 0xde, 0x6f, 0x0a, 0x6c, 0x14, 0x19, 0xd8, 0xbd, 0xc9, 0xa0,
+	0x07, 0x12, 0xb5, 0xaf, 0xa6, 0x4c, 0x4c, 0x59, 0xfd, 0xac, 0xc0, 0xff, 0x07, 0x55, 0xff, 0xc9,
+	0x38, 0xd8, 0x81, 0x14, 0xed, 0x8b, 0x0b, 0xa7, 0xa4, 0x1c, 0x5e, 0x29, 0x50, 0x1e, 0x7a, 0xe5,
+	0xec, 0x8e, 0xc3, 0x1c, 0x96, 0xa5, 0x7d, 0x39, 0x4d, 0x56, 0x4a, 0xe6, 0xb5, 0x02, 0x57, 0x0a,
+	0xfc, 0xe9, 0xf3, 0xc9, 0x80, 0xfb, 0xf3, 0xb4, 0x07, 0xd3, 0xe5, 0x0d, 0xa1, 0x34, 0xf0, 0x0e,
+	0x33, 0x21, 0xa5, 0xfe, 0xbc, 0x49, 0x29, 0x15, 0xbd, 0x27, 0xa0, 0x16, 0x40, 0xc6, 0x19, 0x6f,
+	0x8f, 0x43, 0x3b, 0x8f, 0xd5, 0x6a, 0x93, 0xc7, 0xa6, 0xab, 0x05, 0xb0, 0x92, 0xb3, 0xc6, 0x8f,
+	0xc7, 0xb2, 0xcf, 0x44, 0x6b, 0xbb, 0x17, 0x89, 0xce, 0xc9, 0xb5, 0xc8, 0x1d, 0xef, 0x5d, 0xa0,
+	0x7a, 0xd9, 0xc4, 0xf1, 0x72, 0x1d, 0x63, 0x6e, 0x7b, 0x8f, 0xdf, 0x9c, 0x56, 0x94, 0xb7, 0xa7,
+	0x15, 0xe5, 0xef, 0xd3, 0x8a, 0xf2, 0xfa, 0xac, 0x32, 0xf3, 0xf6, 0xac, 0x32, 0xf3, 0xe7, 0x59,
+	0x65, 0xe6, 0xd0, 0xc8, 0x78, 0xaa, 0x80, 0xbe, 0xd3, 0xf7, 0xd1, 0xf0, 0x22, 0xf3, 0x3d, 0x22,
+	0x0c, 0xf6, 0x68, 0x41, 0x7e, 0x38, 0x7c, 0xfa, 0x4f, 0x00, 0x00, 0x00, 0xff, 0xff, 0x62, 0x1c,
+	0xd2, 0x42, 0xbb, 0x0c, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -976,7 +1031,8 @@ type MsgClient interface {
 	UpdateSystemContract(ctx context.Context, in *MsgUpdateSystemContract, opts ...grpc.CallOption) (*MsgUpdateSystemContractResponse, error)
 	UpdateContractBytecode(ctx context.Context, in *MsgUpdateContractBytecode, opts ...grpc.CallOption) (*MsgUpdateContractBytecodeResponse, error)
 	UpdateZRC20WithdrawFee(ctx context.Context, in *MsgUpdateZRC20WithdrawFee, opts ...grpc.CallOption) (*MsgUpdateZRC20WithdrawFeeResponse, error)
-	UpdateZRC20PausedStatus(ctx context.Context, in *MsgUpdateZRC20PausedStatus, opts ...grpc.CallOption) (*MsgUpdateZRC20PausedStatusResponse, error)
+	PauseZRC20(ctx context.Context, in *MsgPauseZRC20, opts ...grpc.CallOption) (*MsgPauseZRC20Response, error)
+	UnpauseZRC20(ctx context.Context, in *MsgUnpauseZRC20, opts ...grpc.CallOption) (*MsgUnpauseZRC20Response, error)
 	UpdateZRC20LiquidityCap(ctx context.Context, in *MsgUpdateZRC20LiquidityCap, opts ...grpc.CallOption) (*MsgUpdateZRC20LiquidityCapResponse, error)
 }
 
@@ -1042,9 +1098,18 @@ func (c *msgClient) UpdateZRC20WithdrawFee(ctx context.Context, in *MsgUpdateZRC
 	return out, nil
 }
 
-func (c *msgClient) UpdateZRC20PausedStatus(ctx context.Context, in *MsgUpdateZRC20PausedStatus, opts ...grpc.CallOption) (*MsgUpdateZRC20PausedStatusResponse, error) {
-	out := new(MsgUpdateZRC20PausedStatusResponse)
-	err := c.cc.Invoke(ctx, "/zetachain.zetacore.fungible.Msg/UpdateZRC20PausedStatus", in, out, opts...)
+func (c *msgClient) PauseZRC20(ctx context.Context, in *MsgPauseZRC20, opts ...grpc.CallOption) (*MsgPauseZRC20Response, error) {
+	out := new(MsgPauseZRC20Response)
+	err := c.cc.Invoke(ctx, "/zetachain.zetacore.fungible.Msg/PauseZRC20", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) UnpauseZRC20(ctx context.Context, in *MsgUnpauseZRC20, opts ...grpc.CallOption) (*MsgUnpauseZRC20Response, error) {
+	out := new(MsgUnpauseZRC20Response)
+	err := c.cc.Invoke(ctx, "/zetachain.zetacore.fungible.Msg/UnpauseZRC20", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1068,7 +1133,8 @@ type MsgServer interface {
 	UpdateSystemContract(context.Context, *MsgUpdateSystemContract) (*MsgUpdateSystemContractResponse, error)
 	UpdateContractBytecode(context.Context, *MsgUpdateContractBytecode) (*MsgUpdateContractBytecodeResponse, error)
 	UpdateZRC20WithdrawFee(context.Context, *MsgUpdateZRC20WithdrawFee) (*MsgUpdateZRC20WithdrawFeeResponse, error)
-	UpdateZRC20PausedStatus(context.Context, *MsgUpdateZRC20PausedStatus) (*MsgUpdateZRC20PausedStatusResponse, error)
+	PauseZRC20(context.Context, *MsgPauseZRC20) (*MsgPauseZRC20Response, error)
+	UnpauseZRC20(context.Context, *MsgUnpauseZRC20) (*MsgUnpauseZRC20Response, error)
 	UpdateZRC20LiquidityCap(context.Context, *MsgUpdateZRC20LiquidityCap) (*MsgUpdateZRC20LiquidityCapResponse, error)
 }
 
@@ -1094,8 +1160,11 @@ func (*UnimplementedMsgServer) UpdateContractBytecode(ctx context.Context, req *
 func (*UnimplementedMsgServer) UpdateZRC20WithdrawFee(ctx context.Context, req *MsgUpdateZRC20WithdrawFee) (*MsgUpdateZRC20WithdrawFeeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateZRC20WithdrawFee not implemented")
 }
-func (*UnimplementedMsgServer) UpdateZRC20PausedStatus(ctx context.Context, req *MsgUpdateZRC20PausedStatus) (*MsgUpdateZRC20PausedStatusResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateZRC20PausedStatus not implemented")
+func (*UnimplementedMsgServer) PauseZRC20(ctx context.Context, req *MsgPauseZRC20) (*MsgPauseZRC20Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PauseZRC20 not implemented")
+}
+func (*UnimplementedMsgServer) UnpauseZRC20(ctx context.Context, req *MsgUnpauseZRC20) (*MsgUnpauseZRC20Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UnpauseZRC20 not implemented")
 }
 func (*UnimplementedMsgServer) UpdateZRC20LiquidityCap(ctx context.Context, req *MsgUpdateZRC20LiquidityCap) (*MsgUpdateZRC20LiquidityCapResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateZRC20LiquidityCap not implemented")
@@ -1213,20 +1282,38 @@ func _Msg_UpdateZRC20WithdrawFee_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_UpdateZRC20PausedStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgUpdateZRC20PausedStatus)
+func _Msg_PauseZRC20_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgPauseZRC20)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).UpdateZRC20PausedStatus(ctx, in)
+		return srv.(MsgServer).PauseZRC20(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/zetachain.zetacore.fungible.Msg/UpdateZRC20PausedStatus",
+		FullMethod: "/zetachain.zetacore.fungible.Msg/PauseZRC20",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).UpdateZRC20PausedStatus(ctx, req.(*MsgUpdateZRC20PausedStatus))
+		return srv.(MsgServer).PauseZRC20(ctx, req.(*MsgPauseZRC20))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_UnpauseZRC20_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgUnpauseZRC20)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).UnpauseZRC20(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/zetachain.zetacore.fungible.Msg/UnpauseZRC20",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).UnpauseZRC20(ctx, req.(*MsgUnpauseZRC20))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1278,8 +1365,12 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Msg_UpdateZRC20WithdrawFee_Handler,
 		},
 		{
-			MethodName: "UpdateZRC20PausedStatus",
-			Handler:    _Msg_UpdateZRC20PausedStatus_Handler,
+			MethodName: "PauseZRC20",
+			Handler:    _Msg_PauseZRC20_Handler,
+		},
+		{
+			MethodName: "UnpauseZRC20",
+			Handler:    _Msg_UnpauseZRC20_Handler,
 		},
 		{
 			MethodName: "UpdateZRC20LiquidityCap",
@@ -1746,7 +1837,7 @@ func (m *MsgUpdateContractBytecodeResponse) MarshalToSizedBuffer(dAtA []byte) (i
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgUpdateZRC20PausedStatus) Marshal() (dAtA []byte, err error) {
+func (m *MsgPauseZRC20) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -1756,21 +1847,16 @@ func (m *MsgUpdateZRC20PausedStatus) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgUpdateZRC20PausedStatus) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgPauseZRC20) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgUpdateZRC20PausedStatus) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgPauseZRC20) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
-	if m.Action != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.Action))
-		i--
-		dAtA[i] = 0x18
-	}
 	if len(m.Zrc20Addresses) > 0 {
 		for iNdEx := len(m.Zrc20Addresses) - 1; iNdEx >= 0; iNdEx-- {
 			i -= len(m.Zrc20Addresses[iNdEx])
@@ -1790,7 +1876,7 @@ func (m *MsgUpdateZRC20PausedStatus) MarshalToSizedBuffer(dAtA []byte) (int, err
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgUpdateZRC20PausedStatusResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgPauseZRC20Response) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -1800,12 +1886,74 @@ func (m *MsgUpdateZRC20PausedStatusResponse) Marshal() (dAtA []byte, err error) 
 	return dAtA[:n], nil
 }
 
-func (m *MsgUpdateZRC20PausedStatusResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgPauseZRC20Response) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgUpdateZRC20PausedStatusResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgPauseZRC20Response) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgUnpauseZRC20) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgUnpauseZRC20) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgUnpauseZRC20) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Zrc20Addresses) > 0 {
+		for iNdEx := len(m.Zrc20Addresses) - 1; iNdEx >= 0; iNdEx-- {
+			i -= len(m.Zrc20Addresses[iNdEx])
+			copy(dAtA[i:], m.Zrc20Addresses[iNdEx])
+			i = encodeVarintTx(dAtA, i, uint64(len(m.Zrc20Addresses[iNdEx])))
+			i--
+			dAtA[i] = 0x12
+		}
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgUnpauseZRC20Response) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgUnpauseZRC20Response) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgUnpauseZRC20Response) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -2098,7 +2246,7 @@ func (m *MsgUpdateContractBytecodeResponse) Size() (n int) {
 	return n
 }
 
-func (m *MsgUpdateZRC20PausedStatus) Size() (n int) {
+func (m *MsgPauseZRC20) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -2114,13 +2262,38 @@ func (m *MsgUpdateZRC20PausedStatus) Size() (n int) {
 			n += 1 + l + sovTx(uint64(l))
 		}
 	}
-	if m.Action != 0 {
-		n += 1 + sovTx(uint64(m.Action))
+	return n
+}
+
+func (m *MsgPauseZRC20Response) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgUnpauseZRC20) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if len(m.Zrc20Addresses) > 0 {
+		for _, s := range m.Zrc20Addresses {
+			l = len(s)
+			n += 1 + l + sovTx(uint64(l))
+		}
 	}
 	return n
 }
 
-func (m *MsgUpdateZRC20PausedStatusResponse) Size() (n int) {
+func (m *MsgUnpauseZRC20Response) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -3547,7 +3720,7 @@ func (m *MsgUpdateContractBytecodeResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgUpdateZRC20PausedStatus) Unmarshal(dAtA []byte) error {
+func (m *MsgPauseZRC20) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -3570,10 +3743,10 @@ func (m *MsgUpdateZRC20PausedStatus) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgUpdateZRC20PausedStatus: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgPauseZRC20: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgUpdateZRC20PausedStatus: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgPauseZRC20: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -3640,25 +3813,6 @@ func (m *MsgUpdateZRC20PausedStatus) Unmarshal(dAtA []byte) error {
 			}
 			m.Zrc20Addresses = append(m.Zrc20Addresses, string(dAtA[iNdEx:postIndex]))
 			iNdEx = postIndex
-		case 3:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Action", wireType)
-			}
-			m.Action = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.Action |= UpdatePausedStatusAction(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skipTx(dAtA[iNdEx:])
@@ -3680,7 +3834,7 @@ func (m *MsgUpdateZRC20PausedStatus) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgUpdateZRC20PausedStatusResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgPauseZRC20Response) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -3703,10 +3857,174 @@ func (m *MsgUpdateZRC20PausedStatusResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgUpdateZRC20PausedStatusResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgPauseZRC20Response: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgUpdateZRC20PausedStatusResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgPauseZRC20Response: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgUnpauseZRC20) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgUnpauseZRC20: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgUnpauseZRC20: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Zrc20Addresses", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Zrc20Addresses = append(m.Zrc20Addresses, string(dAtA[iNdEx:postIndex]))
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgUnpauseZRC20Response) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgUnpauseZRC20Response: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgUnpauseZRC20Response: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:

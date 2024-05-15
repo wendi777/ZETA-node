@@ -3,6 +3,7 @@ package keeper
 import (
 	"context"
 
+	cosmoserrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authoritytypes "github.com/zeta-chain/zetacore/x/authority/types"
 	"github.com/zeta-chain/zetacore/x/observer/types"
@@ -16,8 +17,9 @@ func (k msgServer) UpdateChainParams(goCtx context.Context, msg *types.MsgUpdate
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// check permission
-	if !k.GetAuthorityKeeper().IsAuthorized(ctx, msg.Creator, authoritytypes.PolicyType_groupOperational) {
-		return &types.MsgUpdateChainParamsResponse{}, authoritytypes.ErrUnauthorized
+	err := k.GetAuthorityKeeper().CheckAuthorization(ctx, msg)
+	if err != nil {
+		return nil, cosmoserrors.Wrap(authoritytypes.ErrUnauthorized, err.Error())
 	}
 
 	// find current chain params list or initialize a new one

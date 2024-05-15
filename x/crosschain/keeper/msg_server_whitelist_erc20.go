@@ -26,8 +26,9 @@ func (k msgServer) WhitelistERC20(goCtx context.Context, msg *types.MsgWhitelist
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// check if authorized
-	if !k.GetAuthorityKeeper().IsAuthorized(ctx, msg.Creator, authoritytypes.PolicyType_groupOperational) {
-		return nil, errorsmod.Wrap(authoritytypes.ErrUnauthorized, "Deploy can only be executed by the correct policy account")
+	err := k.GetAuthorityKeeper().CheckAuthorization(ctx, msg)
+	if err != nil {
+		return nil, errorsmod.Wrap(authoritytypes.ErrUnauthorized, err.Error())
 	}
 
 	erc20Addr := ethcommon.HexToAddress(msg.Erc20Address)

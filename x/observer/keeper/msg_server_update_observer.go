@@ -4,8 +4,6 @@ import (
 	"context"
 	"fmt"
 
-	authoritytypes "github.com/zeta-chain/zetacore/x/authority/types"
-
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/zeta-chain/zetacore/x/observer/types"
@@ -80,9 +78,10 @@ func (k Keeper) CheckUpdateReason(ctx sdk.Context, msg *types.MsgUpdateObserver)
 		}
 	case types.ObserverUpdateReason_AdminUpdate:
 		{
-			// Operational policy is required to update an observer for admin update
-			if !k.GetAuthorityKeeper().IsAuthorized(ctx, msg.Creator, authoritytypes.PolicyType_groupAdmin) {
-				return false, authoritytypes.ErrUnauthorized
+			// Verify if the message has been signed by an authorized signer
+			err := k.GetAuthorityKeeper().CheckAuthorization(ctx, msg)
+			if err != nil {
+				return false, err
 			}
 			return true, nil
 		}

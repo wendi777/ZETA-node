@@ -56357,6 +56357,7 @@ definitions:
       - groupEmergency
       - groupOperational
       - groupAdmin
+      - emptyPolicyType
     default: groupEmergency
     description: |-
       - groupEmergency: Used for emergency situations that require immediate action
@@ -56364,6 +56365,9 @@ definitions:
        - groupAdmin: non-sensitive protocol parameters
 
       Used for administrative tasks like changing sensitive
+       - emptyPolicyType: protocol parameters or moving funds
+
+      Used for empty policies, to represent a situation when
     title: PolicyType defines the type of policy
   authorityQueryGetPoliciesResponse:
     type: object
@@ -57024,15 +57028,17 @@ definitions:
         type: string
       systemContract:
         type: string
+  fungibleMsgPauseZRC20Response:
+    type: object
   fungibleMsgRemoveForeignCoinResponse:
+    type: object
+  fungibleMsgUnpauseZRC20Response:
     type: object
   fungibleMsgUpdateContractBytecodeResponse:
     type: object
   fungibleMsgUpdateSystemContractResponse:
     type: object
   fungibleMsgUpdateZRC20LiquidityCapResponse:
-    type: object
-  fungibleMsgUpdateZRC20PausedStatusResponse:
     type: object
   fungibleMsgUpdateZRC20WithdrawFeeResponse:
     type: object
@@ -57088,12 +57094,6 @@ definitions:
         type: string
       connector_zevm:
         type: string
-  fungibleUpdatePausedStatusAction:
-    type: string
-    enum:
-      - PAUSE
-      - UNPAUSE
-    default: PAUSE
   googlerpcStatus:
     type: object
     properties:
@@ -57352,13 +57352,17 @@ definitions:
     type: object
   observerMsgAddObserverResponse:
     type: object
+  observerMsgDisableCCTXFlagsResponse:
+    type: object
+  observerMsgEnableCCTXFlagsResponse:
+    type: object
   observerMsgRemoveChainParamsResponse:
     type: object
   observerMsgResetChainNoncesResponse:
     type: object
   observerMsgUpdateChainParamsResponse:
     type: object
-  observerMsgUpdateCrosschainFlagsResponse:
+  observerMsgUpdateGasPriceIncreaseFlagsResponse:
     type: object
   observerMsgUpdateKeygenResponse:
     type: object

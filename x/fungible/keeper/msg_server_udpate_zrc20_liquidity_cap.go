@@ -16,8 +16,9 @@ func (k msgServer) UpdateZRC20LiquidityCap(goCtx context.Context, msg *types.Msg
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// check authorization
-	if !k.GetAuthorityKeeper().IsAuthorized(ctx, msg.Creator, authoritytypes.PolicyType_groupOperational) {
-		return nil, cosmoserrors.Wrap(authoritytypes.ErrUnauthorized, "update can only be executed by group 2 policy group")
+	err := k.GetAuthorityKeeper().CheckAuthorization(ctx, msg)
+	if err != nil {
+		return nil, cosmoserrors.Wrap(authoritytypes.ErrUnauthorized, err.Error())
 	}
 
 	// fetch the foreign coin

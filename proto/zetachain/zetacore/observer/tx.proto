@@ -22,13 +22,16 @@ service Msg {
   rpc RemoveChainParams(MsgRemoveChainParams)
       returns (MsgRemoveChainParamsResponse);
   rpc AddBlameVote(MsgAddBlameVote) returns (MsgAddBlameVoteResponse);
-  rpc UpdateCrosschainFlags(MsgUpdateCrosschainFlags)
-      returns (MsgUpdateCrosschainFlagsResponse);
   rpc UpdateKeygen(MsgUpdateKeygen) returns (MsgUpdateKeygenResponse);
   rpc VoteBlockHeader(MsgVoteBlockHeader) returns (MsgVoteBlockHeaderResponse);
   rpc ResetChainNonces(MsgResetChainNonces)
       returns (MsgResetChainNoncesResponse);
   rpc VoteTSS(MsgVoteTSS) returns (MsgVoteTSSResponse);
+  rpc EnableCCTXFlags(MsgEnableCCTXFlags) returns (MsgEnableCCTXFlagsResponse);
+  rpc DisableCCTXFlags(MsgDisableCCTXFlags)
+      returns (MsgDisableCCTXFlagsResponse);
+  rpc UpdateGasPriceIncreaseFlags(MsgUpdateGasPriceIncreaseFlags)
+      returns (MsgUpdateGasPriceIncreaseFlagsResponse);
 }
 
 message MsgUpdateObserver {
@@ -83,14 +86,29 @@ message MsgAddBlameVote {
 
 message MsgAddBlameVoteResponse {}
 
-message MsgUpdateCrosschainFlags {
+message MsgEnableCCTXFlags {
   string creator = 1;
-  bool isInboundEnabled = 3;
-  bool isOutboundEnabled = 4;
-  GasPriceIncreaseFlags gasPriceIncreaseFlags = 5;
-  BlockHeaderVerificationFlags blockHeaderVerificationFlags = 6;
+  bool enableInbound = 2;
+  bool enableOutbound = 3;
 }
-message MsgUpdateCrosschainFlagsResponse {}
+
+message MsgEnableCCTXFlagsResponse {}
+
+message MsgDisableCCTXFlags {
+  string creator = 1;
+  bool disableInbound = 2;
+  bool disableOutbound = 3;
+}
+
+message MsgDisableCCTXFlagsResponse {}
+
+message MsgUpdateGasPriceIncreaseFlags {
+  string creator = 1;
+  GasPriceIncreaseFlags gasPriceIncreaseFlags = 2
+      [ (gogoproto.nullable) = false ];
+}
+
+message MsgUpdateGasPriceIncreaseFlagsResponse {}
 
 message MsgUpdateKeygen {
   string creator = 1;

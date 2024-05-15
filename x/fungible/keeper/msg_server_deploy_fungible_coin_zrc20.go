@@ -40,8 +40,9 @@ func (k msgServer) DeployFungibleCoinZRC20(goCtx context.Context, msg *types.Msg
 		return nil, err
 	}
 
-	if !k.GetAuthorityKeeper().IsAuthorized(ctx, msg.Creator, authoritytypes.PolicyType_groupOperational) {
-		return nil, cosmoserrors.Wrap(authoritytypes.ErrUnauthorized, "Deploy can only be executed by the correct policy account")
+	err = k.GetAuthorityKeeper().CheckAuthorization(ctx, msg)
+	if err != nil {
+		return nil, cosmoserrors.Wrap(authoritytypes.ErrUnauthorized, err.Error())
 	}
 
 	if msg.CoinType == coin.CoinType_Gas {
